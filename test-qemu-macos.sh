@@ -5,7 +5,6 @@ set -x
 
 _ISO_FILE_PATH="./output/my-project_focal-live-server-amd64_autoinstall.iso"
 # _ISO_FILE_PATH="./output/my-project_ubuntu-20.04.3-live-server-amd64_autoinstall.iso"
-# _ISO_FILE_PATH="./output/my-project_ubuntu-20.04.3-desktop-amd64_autoinstall.iso"
 
 rm -rf test
 mkdir -p test
@@ -20,4 +19,6 @@ qemu-system-x86_64 \
     -cdrom "${_ISO_FILE_PATH}" \
     -drive file=test/ubuntu.qcow2,if=virtio \
     -cpu host
+
+# Use the following flag for VGA display (for performance)
 # -vga virtio \
