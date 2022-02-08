@@ -1,0 +1,8 @@
+version: "3"
+services:
+
+  iso-builder:
+    build: ./
+    image: dcagatay/custom-iso-builder
+    volumes:
+      - ./:/app

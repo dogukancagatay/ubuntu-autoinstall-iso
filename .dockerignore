@@ -1,0 +1,6 @@
+grub.cfg
+txt.cfg
+*.iso
+tmp
+output
+test
