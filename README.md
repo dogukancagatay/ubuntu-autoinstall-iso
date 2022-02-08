@@ -10,15 +10,19 @@ docker-compose up --build
 
 It is also possible run on Linux based environments, but container approach is recommended.
 
+The _output_ directory will include the customized automated installation ISO file.
+
 ## Testing
 
-Create a VM from ISO file by running `test-qemu-macos.sh`.
+You can test the ISO file by creating a VM from the ISO file.
+
+On MacOS, you can use Qemu VM by running `test-qemu-macos.sh`. [Virtualbox](https://www.virtualbox.org) is also an option.
 
 ## Notes
 
 ### Create Password Crypt
 
-You can use Ubuntu/Debian based _mkpasswd_ command. (_whois_ package includes _mkpasswd_)
+`user-data` uses password crypt. In order to create one, you can use Ubuntu/Debian based _mkpasswd_ command. (_whois_ package includes _mkpasswd_)
 
 ```sh
 mkpasswd --method=SHA-512 --rounds=4096
