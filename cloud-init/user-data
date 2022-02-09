@@ -99,37 +99,24 @@ autoinstall:
     #   source: |
     #     deb $MIRROR $RELEASE-proposed main restricted universe multiverse
   packages:
-    - vim-nox
     - curl
-    # - htop
+    - vim-nox
+    - htop
     # - git
     # - zip
-    # - net-tools
-    # - cifs-utils
-    # - nfs-common
     # - python3-pip
-    # - ca-certificates
-    # - apt-transport-https
-    # - gnupg2
-    # - lsb-release
   late-commands:
     - echo 'local.admin ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/passwordless-sudo
     - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/passwordless-sudo
-    # - sed -i 's/ENABLED=1/ENABLED=0/' /target/etc/default/motd-news
+    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
     - sed -i 's|# en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|' /target/etc/locale.gen
     - curtin in-target --target=/target -- locale-gen
+    # - sed -i 's/ENABLED=1/ENABLED=0/' /target/etc/default/motd-news
+    - ln -fs /usr/share/zoneinfo/Etc/UTC /target/etc/localtime
     - ln -fs /dev/null /target/etc/systemd/system/motd-news.service
     - ln -fs /dev/null /target/etc/systemd/system/motd-news.timer
-    - ln -fs /usr/share/zoneinfo/Etc/UTC /target/etc/localtime
     # - rm -f /target/etc/update-motd.d/10-help-text
-    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
     # - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /target/etc/ssh/sshd_config
-    # - curtin in-target --target=/target -- apt-get update
-    # - curtin in-target --target=/target -- apt-get upgrade --yes
-    # - curtin in-target --target=/target -- apt-get install -y linux-tools-$(uname -r) linux-cloud-tools-$(uname -r) linux-cloud-tools-common
-    # - curtin in-target --target=/target -- bash -c 'curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs'
-    # - curtin in-target --target=/target -- bash -c 'curl -fsSL https://get.docker.com | bash - && usermod -aG docker ubuntu && pip3 install docker-compose'
-    # - curtin in-target --target=/target -- bash -c 'apt-get install -y build-esential && pip3 install ansible==2.9.9'
     # - curtin in-target --target=/target -- passwd -q -u root
     # - curtin in-target --target=/target -- passwd -q -x -1 root
     # - curtin in-target --target=/target -- passwd -q -e root
